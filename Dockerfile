@@ -12,5 +12,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql intl zip exif
 COPY ./luya.sh /usr/local/bin/luya
 COPY ./setup.sh /usr/local/bin/setup
+COPY ./custom.ini /usr/local/etc/php/conf.d/custom.ini
 RUN chmod +x /usr/local/bin/luya
 RUN chmod +x /usr/local/bin/setup
