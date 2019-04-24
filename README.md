@@ -32,3 +32,15 @@ Add a custom.ini file in the docker folder with custom values. For example:
 
 memory_limit = 256M
 ```
+
+## Locales
+
+In order to build locales bash into the container and run `locale-gen de_DE.utf` and `update-locale`.
+
+## Test
+
+In order to test the docker image, build it:
+
+```
+docker build -t luyadocker  .
+```
