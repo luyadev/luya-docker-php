@@ -4,6 +4,16 @@
 
 # LUYA DOCKER PHP PROCESS
 
+## Run commands inside application
+
+```php
+docker run --rm -v $(pwd):/app luyadev/luya-docker-php health
+```
+
+Where `health` is the command to run in LUYA. 
+
+## Docker Compose embed
+
 The PHP Process Docker Image.
 
 docker-compose yml file:
