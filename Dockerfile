@@ -1,7 +1,5 @@
 FROM php:7.2-fpm
-
-# Install all LUYA depending packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
@@ -15,10 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-install -j$(nproc) iconv mbstring \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure intl --enable-intl \
-    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql intl zip exif \
-    && apt-get autoremove -y \
-    && apt-get clean
-
+    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql intl zip exif
 
 # Install Memcached for php 7	
 RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/php7.tar.gz" \	
@@ -28,11 +23,8 @@ RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-m
     && docker-php-ext-install memcached \	
     && rm /tmp/memcached.tar.gz
 
-# Copy config
 COPY ./luya.sh /usr/local/bin/luya
 COPY ./setup.sh /usr/local/bin/setup
 COPY ./custom.ini /usr/local/etc/php/conf.d/custom.ini
-
-# Make the scripts executable
 RUN chmod +x /usr/local/bin/luya
 RUN chmod +x /usr/local/bin/setup
