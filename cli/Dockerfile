@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.2-cli
 
 # Install all LUYA depending packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -29,10 +29,18 @@ RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-m
     && rm /tmp/memcached.tar.gz
 
 # Copy config
-COPY ./luya.sh /usr/local/bin/luya
-COPY ./setup.sh /usr/local/bin/setup
-COPY ./custom.ini /usr/local/etc/php/conf.d/custom.ini
+COPY ./../luya.sh /usr/local/bin/luya
+COPY ./../setup.sh /usr/local/bin/setup
+COPY ./../custom.ini /usr/local/etc/php/conf.d/custom.ini
 
 # Make the scripts executable
 RUN chmod +x /usr/local/bin/luya
 RUN chmod +x /usr/local/bin/setup
+
+# Setup document root
+RUN mkdir -p /app
+
+# Make the document root a volume
+VOLUME /app
+
+ENTRYPOINT [ "/usr/local/bin/luya" ]
