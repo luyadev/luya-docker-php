@@ -37,7 +37,7 @@ memory_limit = 256M
 
 ## Locales
 
-In order to build locales bash into the container and run `locale-gen de_DE.utf` and `update-locale`.
+In order to build locales bash into the container and run `echo 'de_CH.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen`.
 
 ## Test
 
