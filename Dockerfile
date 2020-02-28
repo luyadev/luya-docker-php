@@ -14,6 +14,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure intl --enable-intl \
     && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql intl zip exif
+    
+## install languages
+RUN locale-gen de_CH.UTF-8 de_DE.UTF-8 en_GB.UTF-8 ru_RU.UTF-8 fr_FR.UTF-8 nl_NL.UTF-8
 
 # Install Memcached for php 7	
 RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/php7.tar.gz" \	
